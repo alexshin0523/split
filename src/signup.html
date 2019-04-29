@@ -124,7 +124,7 @@ hr {
 
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="/action_page.php">
+  <form id="createform" class="modal-content" action="/action_page.php">
     <div class="container">
       <h1>Sign Up</h1>
       <p>Please fill in this form to create an account.</p>
@@ -152,7 +152,7 @@ hr {
 
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn" onclick="firebase.auth().createUserWithEmailAndPassword(email,psw)">Sign Up</button>
+        <button id="createbutton" type="submit" class="signupbtn">Sign Up</button>
       </div>
     </div>
   </form>
@@ -169,6 +169,9 @@ window.onclick = function(event) {
   }
 }
 </script>
+
+<script src="firebase.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>

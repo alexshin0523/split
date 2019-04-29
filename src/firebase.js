@@ -1,5 +1,4 @@
 // src/firebase.js
-import firebase from "firebase"
 
 var config = {
     apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
