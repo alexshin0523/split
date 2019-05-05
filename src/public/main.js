@@ -11,6 +11,16 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
     });
 }
 
+function saveUser(fullname, useremail) {
+  return firebase.firestore().collection('users').add({
+  name: fullname,
+  email: useremail,
+	timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+	console.error('Error writing request to Firebase Database', error);
+    });
+}
+
 function onRequestFormSubmit(e) {
   e.preventDefault();
   // Will probably want to add some check on data that is passed in
