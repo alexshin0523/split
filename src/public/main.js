@@ -11,6 +11,23 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
     });
 }
 
+function loadRequests(user) {
+  // Returns results for a query where user field in the table is equal to user variable passed in
+  // Much more advanced queries are possible if needed
+  var query = firebase.firestore()
+                .collection('requests')
+                .where("user", "==", user);
+
+  query.onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+        var message = change.doc.data();
+        // do stuff with message
+	console.log("user: ", message.user);
+        console.log("read comment: ", message.message);
+    });
+  });
+}
+
 function onRequestFormSubmit(e) {
   e.preventDefault();
   // Will probably want to add some check on data that is passed in

@@ -201,6 +201,7 @@ window.onclick = function(event) {
     var amountInt = parseFloat(amount);
     var message = document.getElementById("message").value;
 		saveRequest(user, recipient, amountInt, message);
+    loadRequests(user);
 	}
 </script>
 
