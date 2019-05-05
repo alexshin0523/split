@@ -48,7 +48,7 @@ then take the index.html in the root directory and place it in the public folder
 then you should be able to run firebase serve
 
 
-UPDATE: got the request page to pull data from the actual fields
+UPDATE: got the request page to pull data from the actual fields. run it the same as before using firebase serve and then the default page should be the create request page.
 
 i commented out matthew's UI because all the inputs were contained in one single huge <form> tag which contained a bunch of labels and inputs. i'm sure there's a way to pull the data from those inputs but i couldn't figure out a way to do it. so instead i created a <form> for each of the individual input fields and used document.GetElementById() to fetch the inputs. once we figure out how to get the data from that giant form, we can go back to using matthew's UI.
 
