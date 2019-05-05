@@ -16,3 +16,20 @@ Then run firebase serve, should start the localhost:5000 server.
 Might need to use 'firebase login --interactive' if you're on windows)
 
 html files are kept in the public folder
+
+NOTE: If firebase serve isn't working, try reinstalling firebase. Delete all the firebase files:
+public (folder)
+.firebaserc
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+and then run firebase init.
+check all for the firebase CLI features and then continue
+use cs180-split as the directory
+and just use the defaults for the rest of it.
+after it's all done installing, you should have all the required files 
+then take the index.html in the root directory and place it in the public folder. 
+then you should be able to run firebase serve
