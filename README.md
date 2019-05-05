@@ -30,6 +30,6 @@ and then run firebase init.
 check all for the firebase CLI features and then continue
 use cs180-split as the directory
 and just use the defaults for the rest of it.
-after it's all done installing, you should have all the required files 
+after it's all done installing, it should have recreated all the files you just deleted.
 then take the index.html in the root directory and place it in the public folder. 
 then you should be able to run firebase serve
