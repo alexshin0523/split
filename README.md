@@ -63,3 +63,8 @@ TODO: figure out how we're going to handle accounts. right now we have a google 
 NOTE: probably going to end up replacing "your name" and "recipient's name" to something like "your username" and "recipient's username" because peoples' names aren't unique. we should be storing everyone's names in the user section of the database so when we display to users we can still display their names nicely, but we'll still have their unique username info in each request.
 
 TODO: actually link the login page to some sort of dashboard page, and then have a link to the create request page
+
+Sprint 2 Stories:
+  Close Requests
+  Display total owed by user
+  Display all requests involving user
