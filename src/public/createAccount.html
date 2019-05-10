@@ -119,14 +119,14 @@
     <h2>Create Split Account</h2>
     
     <form>
-        <h2>First and Last Name:<br></h2><input type="text" name="fullname" id="fullname" placeholder="Your Name"/><br>
+        <h2>Email:<br></h2><input type="text" name="useremail" id="useremail"/><br>
     </form>
     
     <form>
-        <h2>Email:<br></h2><input type="text" name="useremail" id="useremail" placeholder="Your Email"/><br>
-        <input type="button" id="createuserbutton" value="Create Account" onclick="createAccount_func()"/>
+        <h2>Password:<br></h2><input type="password" name="userpw" id="userpw"/><br>
     </form>
 
+    <button onclick="createAccount()" style="width:auto;">Create Account</button>
 
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 
@@ -147,11 +147,17 @@
 
 
 <script>
-	function createAccount_func(){
+	function createAccount(){
     console.log("Request Clicked"); 
-    var fullname = document.getElementById("fullname").value;
     var useremail = document.getElementById("useremail").value;
-	saveUser(fullname, useremail);
+    var userpw = document.getElementById("userpw").value;
+	  firebase.auth().createUserWithEmailAndPassword(useremail, userpw).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(error);
+      // ...
+    });
 	}
 </script>
 
