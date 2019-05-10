@@ -27,6 +27,27 @@ function loadRequests(user) {
     });
   });
 }
+
+function getRequestsTotal(user) {
+  // Returns results for a query where user field in the table is equal to user variable passed in
+  // Much more advanced queries are possible if needed
+  var query = firebase.firestore()
+                .collection('requests')
+                .where("user", "==", user);
+
+  var total = 0
+
+  query.onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+        var message = change.doc.data();
+        total += parseInt(message.amount);
+        // do stuff with message
+	console.log("user: ", message.user);
+        console.log("current total: ", total);
+    });
+  });
+}
+
 function saveUser(fullname, useremail) {
   return firebase.firestore().collection('users').add({
   name: fullname,
