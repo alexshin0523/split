@@ -80,7 +80,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -150,7 +150,7 @@ hr {
 
       <label for="payment_note"><b>Payment Notes</b></label>
       <input type="text" placeholder="Enter payment request notes" name="payment_note" required>
-      
+
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
         <button id="requestbutton" type="submit" class="signupbtn" onClick="request_func()">Send Request</button>
@@ -194,7 +194,7 @@ window.onclick = function(event) {
 
 <script>
 	function request_func(){
-    console.log("Request Clicked"); 
+    console.log("Request Clicked");
     var user = document.getElementById("requestinguser").value;
     var recipient = document.getElementById("recipientuser").value;
     var amount = document.getElementById("amount").value;
@@ -202,6 +202,7 @@ window.onclick = function(event) {
     var message = document.getElementById("message").value;
 		saveRequest(user, recipient, amountInt, message);
 	loadRequests(user);
+  getRequestTotal(user);
 	}
 </script>
 

@@ -1,4 +1,4 @@
-// Save a new request to Firebase 
+// Save a new request to Firebase
 function saveRequest(sender_name, recipient_name, amount_requested, request_memo) {
   return firebase.firestore().collection('requests').add({
 	user: sender_name,
@@ -27,7 +27,6 @@ function loadRequests(user) {
     });
   });
 }
-
 function saveUser(fullname, useremail) {
   return firebase.firestore().collection('users').add({
   name: fullname,
