@@ -45,5 +45,26 @@ function onRequestFormSubmit(e) {
   saveRequest("test1", "test2", 1, "test3");
 }
 
+function signOut(){
+  // Sign out of Firebase.
+  firebase.auth().signOut();
+}
+
+
+function initFirebaseAuth() {
+  //Listen to auth state changes.
+  firebase.auth().onAuthStateChanged(authStateObserver);
+}
+
+function getUserName() {
+  var username = firebase.auth().currentUser.displayName;
+  console.log(username);
+}
+
+// Returns true if a user is signed-in.
+function isUserSignedIn() {
+  return !!firebase.auth().currentUser;
+}
+
 //var requestFormElement = document.getElementById('requestform');
 //requestFormElement.addEventListener('requestbutton', onRequestFormSubmit);
