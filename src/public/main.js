@@ -5,6 +5,7 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
 	recipient: recipient_name,
   amount: amount_requested,
   message: request_memo,
+  closed: false,
 	timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(function(error) {
 	console.error('Error writing request to Firebase Database', error);
@@ -14,17 +15,21 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
 function loadRequests(user) {
   // Returns results for a query where user field in the table is equal to user variable passed in
   // Much more advanced queries are possible if needed
+  var results = [];
   var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
 		.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
-        			// do stuff with message
+              // do stuff with message
+              results.push(doc.id);
 				console.log("user: ", doc.get("user"));
         			console.log("read comment: ", doc.get("message"));
     		});
-	});
+  });
+  //console.log(results);
+  return results;
 }
 
 function getRequestsTotal(user) {
