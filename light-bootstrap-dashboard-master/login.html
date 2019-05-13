@@ -42,19 +42,19 @@
 		</div>
 		<!-- /Background Image -->
 
-<h2>Split: Log In</h2>
+<h2 style="color:white">Split: Log In</h2>
 
 <form>
-  <h2>Email:<br></h2><input type="text" name="useremail" id="useremail"/><br>
+  <h2 style="color:white">Email:<br></h2><input type="text" name="useremail" id="useremail"/><br>
 </form>
 
 <form>
-  <h2>Password:<br></h2><input type="password" name="userpw" id="userpw"/><br>
+  <h2 style="color:white">Password:<br></h2><input type="password" name="userpw" id="userpw"/><br>
 </form>
 
 <button class="white-btn" onclick="emailSignIn()" style="width:auto;">Login with Email</button>
 
-<h2>Or</h2>
+<h2 style="color:white">Or</h2>
 
 <button onclick="googleSignIn()" class="white-btn" style="width:auto;">Login with Google</button>
 <script src="main.js"></script>
@@ -105,7 +105,7 @@
 <script>
 firebase.auth().onAuthStateChanged(user => {
   if(user) {
-    window.location = 'test.html'; //After successful login, user will be redirected to dashboard
+    window.location = 'dashboard.html'; //After successful login, user will be redirected to dashboard
   }
 });
 </script>
