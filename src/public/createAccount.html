@@ -127,6 +127,9 @@
     </form>
 
     <button onclick="createAccount()" style="width:auto;">Create Account</button>
+    <button onclick="googleSignIn()" style="width:auto;">Or Sign In with Google</button>
+    <a href='index.html'><button>Back</button></a>
+
 
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 
@@ -142,6 +145,17 @@
       };
     // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+
+    googleSignIn=()=>{
+    base_provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(base_provider).then(function(result){
+      console.log(result)
+      console.log("Success, Google Account Linked")
+    }).catch(function(err) {
+      console.log(err)
+      console.log("Failed to link google account")
+    })
+    }
  </script>
 
 

@@ -113,6 +113,8 @@
 </style>
 
 <body>
+
+<!--Forms to use later in the emailSignIn() function.-->
 <h2>Split: Log In</h2>
 
 <form>
@@ -124,10 +126,11 @@
 </form>
 
 <button onclick="emailSignIn()" style="width:auto;">Login with Email</button>
+<button onclick="googleSignIn()" style="width:auto;">Or Login with Google</button>
 
-<h2>Or</h2>
+<a href='index.html'><button>Back</button></a>
 
-<button onclick="googleSignIn()" style="width:auto;">Login with Google</button>
+
 <script src="main.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 <script>
@@ -173,6 +176,7 @@
   }
 </script>
 
+<!--Waits for a change in the user variable. Once you log in, the user variable is populated-->
 <script>
 firebase.auth().onAuthStateChanged(user => {
   if(user) {

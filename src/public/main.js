@@ -5,6 +5,7 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
 	recipient: recipient_name,
   amount: amount_requested,
   message: request_memo,
+  closed: false,
 	timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(function(error) {
 	console.error('Error writing request to Firebase Database', error);

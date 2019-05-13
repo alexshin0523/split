@@ -128,6 +128,7 @@ hr {
   <input type="button" id="requestbutton" value="Submit" onclick="request_func()"/>
 </form>
 
+<!--Redirect back to the home page-->
 <a href='test.html'><button>Back to Home</button></a>
 
 
@@ -194,6 +195,7 @@ window.onclick = function(event) {
                   //you can use it in all your other script tags as well
     firebase.auth().onAuthStateChanged(user => {
         if(user) {
+            //Requesting user's email will be pulled from whoever is currently logged in.
             useremail = user.email;
         }
         else {
@@ -205,13 +207,13 @@ window.onclick = function(event) {
 <script>
 	function request_func(){
     console.log("Request Clicked");
-    //using the useremail variable from the previous script
     var recipient = document.getElementById("recipientuser").value;
     var amount = document.getElementById("amount").value;
     var amountInt = parseFloat(amount);
     var message = document.getElementById("message").value;
+    //using the useremail variable declared from the previous script
 		saveRequest(useremail, recipient, amountInt, message);
-	loadRequests(useremail);
+	  loadRequests(useremail);
   	getRequestsTotal(useremail);
 	}
 </script>
