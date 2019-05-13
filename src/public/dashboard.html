@@ -112,7 +112,7 @@
 
                         <li>
                             <a href="#">
-                                <p>Log out</p>
+                                <p onclick="signOut()">Log Out</p>
                             </a>
                         </li>
 						<li class="separator hidden-lg"></li>
@@ -362,5 +362,42 @@
 
     	});
 	</script>
+	
+    <script src="main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+            authDomain: "cs180-split.firebaseapp.com",
+            databaseURL: "https://cs180-split.firebaseio.com",
+            projectId: "cs180-split",
+            storageBucket: "cs180-split.appspot.com",
+            messagingSenderId: "638604999532"
+          };
+          firebase.initializeApp(config);
+        
+    </script>
+
+    <script>
+    function signOut(){
+        // Sign out of Firebase.
+        firebase.auth().signOut();
+    }
+    </script>
+    
+    <script>
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            //Since the user variable is now populated, we can grab the email and display the greeting message to the displayuser variable.
+            var greeting = "Welcome " + user.email;
+            document.getElementById("displayuser").innerHTML = greeting;
+        }
+        else {
+            //If you click sign out, the user variable is emptied and it will jump to this branch.
+            window.location = 'index.html'; //After logout, redirect to index.
+        }
+    });
+</script
 
 </html>

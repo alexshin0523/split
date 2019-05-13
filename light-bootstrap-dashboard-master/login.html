@@ -117,5 +117,19 @@ firebase.auth().onAuthStateChanged(user => {
   }
 </script>
 
+<script>
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            //Since the user variable is now populated, we can grab the email and display the greeting message to the displayuser variable.
+            var greeting = "Welcome " + user.email;
+            document.getElementById("displayuser").innerHTML = greeting;
+        }
+        else {
+            //If you click sign out, the user variable is emptied and it will jump to this branch.
+            window.location = 'index.html'; //After logout, redirect to index.
+        }
+    });
+</script
+
 </body>
 </html>
