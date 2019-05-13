@@ -113,80 +113,54 @@
 </style>
 
 <body>
-<h2>Split: Log In</h2>
+    <script src="main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+            authDomain: "cs180-split.firebaseapp.com",
+            databaseURL: "https://cs180-split.firebaseio.com",
+            projectId: "cs180-split",
+            storageBucket: "cs180-split.appspot.com",
+            messagingSenderId: "638604999532"
+          };
+          firebase.initializeApp(config);
+        
+    </script>
 
-<form>
-  <h2>Email:<br></h2><input type="text" name="useremail" id="useremail"/><br>
-</form>
 
-<form>
-  <h2>Password:<br></h2><input type="password" name="userpw" id="userpw"/><br>
-</form>
-
-<button onclick="emailSignIn()" style="width:auto;">Login with Email</button>
-
-<h2>Or</h2>
-
-<button onclick="googleSignIn()" style="width:auto;">Login with Google</button>
-<script src="main.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<p id="displayuser"></p>
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
-    authDomain: "cs180-split.firebaseapp.com",
-    databaseURL: "https://cs180-split.firebaseio.com",
-    projectId: "cs180-split",
-    storageBucket: "cs180-split.appspot.com",
-    messagingSenderId: "638604999532"
-  };
-  firebase.initializeApp(config);
-
-  //Sign in with a Google account.
-  googleSignIn=()=>{
-    base_provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(base_provider).then(function(result){
-      console.log(result)
-      console.log("Success, Google Account Linked")
-    }).catch(function(err) {
-      console.log(err)
-      console.log("Failed to link google account")
-    })
-    }
-</script>
-
-<script>
-  //Sign in with email and password.
-  function emailSignIn(){
-    console.log("Request Clicked"); 
-    var useremail = document.getElementById("useremail").value;
-    var userpw = document.getElementById("userpw").value;
-    firebase.auth().signInWithEmailAndPassword(useremail, userpw).then(function(result){
-      console.log(result)
-      console.log("Success, logged in")
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(error);
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            var greeting = "Welcome " + user.email;
+            document.getElementById("displayuser").innerHTML = greeting;
+        }
+        else {
+            window.location = 'index.html'; //After logout, redirect to index.
+        }
     });
-  }
 </script>
 
+
+
+<div>
+
+<button onclick="signOut()" style="width:auto;">Sign Out</button>
+
+
+
+
+
+</div>
 <script>
-firebase.auth().onAuthStateChanged(user => {
-  if(user) {
-    window.location = 'test.html'; //After successful login, user will be redirected to dashboard
-  }
-});
+      function signOut(){
+        // Sign out of Firebase.
+        console.log("logout clicked");
+        firebase.auth().signOut();
+      }
 </script>
-
-<script>
-  function signOut(){
-    // Sign out of Firebase.
-    firebase.auth().signOut();
-  }
-</script>
-
+    
 </body>
 </html>
