@@ -213,7 +213,7 @@ window.onclick = function(event) {
     var message = document.getElementById("message").value;
     //using the useremail variable declared from the previous script
 		saveRequest(useremail, recipient, amountInt, message);
-	  loadRequests(useremail);
+	  console.log(loadRequests(useremail));
   	getRequestsTotal(useremail);
 	}
 </script>
