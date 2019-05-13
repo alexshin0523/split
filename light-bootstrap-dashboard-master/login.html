@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>HTML Template</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+	<!-- Owl Carousel -->
+	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
+	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
+
+	<!-- Magnific Popup -->
+	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+<body>
+	<header id="home">
+		<!-- Background Image -->
+		<div class="bg-img" style="background-image: url('./img/background1.jpg');">
+			<div class="overlay"></div>
+		</div>
+		<!-- /Background Image -->
+
+<h2>Split: Log In</h2>
+
+<form>
+  <h2>Email:<br></h2><input type="text" name="useremail" id="useremail"/><br>
+</form>
+
+<form>
+  <h2>Password:<br></h2><input type="password" name="userpw" id="userpw"/><br>
+</form>
+
+<button class="white-btn" onclick="emailSignIn()" style="width:auto;">Login with Email</button>
+
+<h2>Or</h2>
+
+<button onclick="googleSignIn()" class="white-btn" style="width:auto;">Login with Google</button>
+<script src="main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+    authDomain: "cs180-split.firebaseapp.com",
+    databaseURL: "https://cs180-split.firebaseio.com",
+    projectId: "cs180-split",
+    storageBucket: "cs180-split.appspot.com",
+    messagingSenderId: "638604999532"
+  };
+  firebase.initializeApp(config);
+
+  //Sign in with a Google account.
+  googleSignIn=()=>{
+    base_provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(base_provider).then(function(result){
+      console.log(result)
+      console.log("Success, Google Account Linked")
+    }).catch(function(err) {
+      console.log(err)
+      console.log("Failed to link google account")
+    })
+    }
+</script>
+
+<script>
+  //Sign in with email and password.
+  function emailSignIn(){
+    console.log("Request Clicked"); 
+    var useremail = document.getElementById("useremail").value;
+    var userpw = document.getElementById("userpw").value;
+    firebase.auth().signInWithEmailAndPassword(useremail, userpw).then(function(result){
+      console.log(result)
+      console.log("Success, logged in")
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(error);
+    });
+  }
+</script>
+
+<script>
+firebase.auth().onAuthStateChanged(user => {
+  if(user) {
+    window.location = 'test.html'; //After successful login, user will be redirected to dashboard
+  }
+});
+</script>
+
+<script>
+  function signOut(){
+    // Sign out of Firebase.
+    firebase.auth().signOut();
+  }
+</script>
+
+</body>
+</html>
