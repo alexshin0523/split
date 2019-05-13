@@ -148,7 +148,7 @@
 
 <script>
 	function createAccount(){
-    console.log("Request Clicked"); 
+    console.log("Account Create Clicked"); 
     var useremail = document.getElementById("useremail").value;
     var userpw = document.getElementById("userpw").value;
 	  firebase.auth().createUserWithEmailAndPassword(useremail, userpw).catch(function(error) {
