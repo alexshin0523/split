@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script src="main.js"></script>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -106,7 +107,7 @@
                     <ul class="nav navbar-nav navbar-right">
 
                         <li>
-                            <a href="logout.html">
+                            <a href="home.html" onclick="return signOut();">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -356,6 +357,34 @@
             });
 
     	});
-	</script>
+    </script>
+
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+    authDomain: "cs180-split.firebaseapp.com",
+    databaseURL: "https://cs180-split.firebaseio.com",
+    projectId: "cs180-split",
+    storageBucket: "cs180-split.appspot.com",
+    messagingSenderId: "638604999532"
+  };
+  firebase.initializeApp(config);
+
+  
+</script>
+
+<script>
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            //do something with the user information
+        }
+        else {
+            //means no user is signed in
+        }
+    });
+</script>
+
 
 </html>

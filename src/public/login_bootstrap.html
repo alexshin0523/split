@@ -38,18 +38,18 @@
 					</span>
 					
 					<div class="wrap-input100 rs1 validate-input" data-validate = "Username is required">
-						<input class="input100" type="text" name="username">
+						<input class="input100" type="text" id="username" name="username">
 						<span class="label-input100">Username</span>
 					</div>
 					
 					
 					<div class="wrap-input100 rs2 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" id="pass" name="pass">
 						<span class="label-input100">Password</span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button onclick="emailSignIn()" class="login100-form-btn">
 							Sign in
 						</button>
 					</div>
@@ -116,6 +116,24 @@
 			})
 		}
 	</script>
+
+	<script>
+		//Sign in with email and password.
+		function emailSignIn(){
+		  console.log("Request Clicked"); 
+		  var useremail = document.getElementById("username").value;
+		  var userpw = document.getElementById("pass").value;
+		  firebase.auth().signInWithEmailAndPassword(useremail, userpw).then(function(result){
+			console.log(result)
+			console.log("Success, logged in")
+		  }).catch(function(error) {
+			// Handle Errors here.
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			console.log(error);
+		  });
+		}
+	  </script>
 
 	<!--Waits for a change in the user variable. Once you log in, the user variable is populated-->
 	<script>
