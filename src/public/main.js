@@ -22,13 +22,9 @@ function loadRequests(user) {
 		.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
-              // do stuff with message
               results.push(doc.id);
-				console.log("user: ", doc.get("user"));
-        			console.log("read comment: ", doc.get("message"));
     		});
   });
-  //console.log(results);
   return results;
 }
 
