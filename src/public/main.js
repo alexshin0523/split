@@ -1,15 +1,23 @@
 // Save a new request to Firebase
 function saveRequest(sender_name, recipient_name, amount_requested, request_memo) {
-  return firebase.firestore().collection('requests').add({
-	user: sender_name,
-	recipient: recipient_name,
-  amount: amount_requested,
-  message: request_memo,
-  closed: false,
-	timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-	console.error('Error writing request to Firebase Database', error);
-    });
+    // Check if amount requested is an integer
+    if (!Number.isInteger(amount_requested)) {
+        console.error('Amount requested is not integer');
+        return false;
+    }
+    // Check if recipient exists
+    // Not possible with current firebase setup :(    
+
+    return firebase.firestore().collection('requests').add({
+	        user: sender_name,
+	        recipient: recipient_name,
+            amount: amount_requested,
+            message: request_memo,
+            closed: false,
+	        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(function(error) {
+	        console.error('Error writing request to Firebase Database', error);
+        });
 }
 
 function populateRequestsTable(user, closed) {
