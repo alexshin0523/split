@@ -12,6 +12,37 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
     });
 }
 
+function populateRequestsTable(user, closed) {
+    var reqIDs;
+    var table;
+    if (closed) {
+        reqIDs = getOpenRequestIDs(user);
+        table = "closedRequests";
+    } else {
+        reqIDs = getClosedRequestIDs(user);
+        table = "openRequests";
+    }
+
+    var tablecontents = "";
+
+    for (let i = 0; i < reqIDs.length; i++) {
+        tablecontents += "<tr>";
+        tablecontents += "<td>" + getRequestField(reqIDs[i], 'recipient') + "</td>";
+        tablecontents += "<td>" + getRequestField(reqIDs[i], 'amount') + "</td>";
+        tablecontents += "<td>" + getRequestField(reqIDs[i], 'message') + "</td>";
+        tablecontents += "</tr>";
+    }
+    document.getElementById(table).innerHTML += tablecontents;
+}
+
+function populateOpenRequestsTable(user) {
+    populateRequestsTable(user, false);
+}
+
+function populateClosedRequestsTable(user) {
+    populateRequestsTable(user, true);
+}
+
 function getRequestIDs(user, closed) {
   // Returns results for a query where user field in the table is equal to user variable passed in
   // Much more advanced queries are possible if needed
