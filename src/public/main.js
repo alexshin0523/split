@@ -32,6 +32,12 @@ function loadRequests(user) {
   return results;
 }
 
+// Returns the passed in field for the specified doc id.
+// Example usage getRequestField('doc1', 'amount') returns amount field for doc1.
+function getRequestField(id, field) {
+    return firebase.firestore().collection('requests').doc(id).get(field);
+}
+
 function getRequestsTotal(user) {
 var total = 0;
 
