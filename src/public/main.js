@@ -12,13 +12,14 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
     });
 }
 
-function loadRequests(user) {
+function getRequestIDs(user, closed) {
   // Returns results for a query where user field in the table is equal to user variable passed in
   // Much more advanced queries are possible if needed
   var results = [];
   var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
+                .where("closed", "==", closed)
 		.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
@@ -26,6 +27,14 @@ function loadRequests(user) {
     		});
   });
   return results;
+}
+
+function getOpenRequestIDs(user) {
+    return getRequestIDs(user, false);
+}
+
+function getClosedRequestIDs(user) {
+    return getRequestIDs(user, true);
 }
 
 // Returns the passed in field for the specified doc id.
