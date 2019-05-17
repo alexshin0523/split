@@ -20,7 +20,8 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
         });
 }
 
-function populateRequestsTable(user, closed) {
+function populateRequestsTable(closed) {
+    var user = getUserName();
     var reqIDs;
     var table;
     if (closed) {
@@ -129,6 +130,7 @@ function initFirebaseAuth() {
 function getUserName() {
   var username = firebase.auth().currentUser.displayName;
   console.log(username);
+  return username;
 }
 
 // Returns true if a user is signed-in.
