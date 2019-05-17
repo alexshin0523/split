@@ -96,7 +96,9 @@ function getRequestsTotal() {
                 .get()
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
+                                if(doc.get("closed") == false) {
                                 total += parseInt(doc.get("amount"));
+                                }
                         document.getElementById("openTotal").innerHTML = "Total: " + total;
                 });
         });	
@@ -133,7 +135,7 @@ function initFirebaseAuth() {
 
 function getUserName() {
   var username = firebase.auth().currentUser.email;
-  console.log(username);
+  //console.log(username);
   return username;
 }
 
