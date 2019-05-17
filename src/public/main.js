@@ -52,6 +52,8 @@ function populateRequestsTable() {
             document.getElementById("openRequest").innerHTML += opencontents;            
         });
     });
+
+    getRequestsTotal();
 }
 
 function getRequestIDs(user) {
@@ -84,17 +86,18 @@ function getRequestField(id, field) {
     return firebase.firestore().collection('requests').doc(id).get(field);
 }
 
-function getRequestsTotal(user) {
-var total = 0;
+function getRequestsTotal() {
+    var total = 0;
+    var user = getUserName();
 
-var query = firebase.firestore()
+    var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
                 .get()
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                                 total += parseInt(doc.get("amount"));
-                                console.log("curr total: ", total);
+                        document.getElementById("openTotal").innerHTML = "Total: " + total;
                 });
         });	
 return total;

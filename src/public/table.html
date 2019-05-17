@@ -9,8 +9,8 @@
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
-
+    
+    <script src="main.js"></script>
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -148,8 +148,11 @@
                             </div>
                         </div>
                     </div>
-
-
+                    
+                    <p id="openTotal">
+                    
+                    </p>
+                    <script>getRequestsTotal()</script>
                     <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="header">
@@ -229,7 +232,6 @@
 
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
-<script src="main.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 <script>
     // Initialize Firebase
