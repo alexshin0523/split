@@ -26,10 +26,10 @@ function populateRequestsTable(closed) {
     var table;
     if (closed) {
         reqIDs = getOpenRequestIDs(user);
-        table = "closedRequests";
+        table = "closeRequest";
     } else {
         reqIDs = getClosedRequestIDs(user);
-        table = "openRequests";
+        table = "openRequest";
     }
 
     var tablecontents = "";
