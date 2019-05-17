@@ -111,6 +111,47 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Split: Create Request </h4>
+                            </div>
+                            <div class="content">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Recipient's Email:</label>
+                                                <input type="text" class="form-control" name="recipientuser" id="recipientuser" placeholder="Recipient's Name" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Request Amount ($):</label>
+                                                <input type="text" class="form-control" name="amount" id="amount" pattern="^\d*(\.\d{0,2})?$" placeholder="Amount ($)" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Whats this payment for?</label>
+                                                <input type="text" class="form-control" name="message" id="message" placeholder="Message" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" id="requestbutton" value="Submit" onclick="request_func()"/>
+                                    <a href="requestT.html">Send Request</a>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -135,6 +176,19 @@
 
 
 </body>
+
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+        authDomain: "cs180-split.firebaseapp.com",
+        databaseURL: "https://cs180-split.firebaseio.com",
+        projectId: "cs180-split",
+        storageBucket: "cs180-split.appspot.com",
+        messagingSenderId: "638604999532"
+    };
+    firebase.initializeApp(config);
 
     <!--   Core JS Files   -->
     <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
