@@ -126,7 +126,7 @@
                                     <th>REQUEST AMOUNT ($):</th>
                                     <th>WHATS THIS PAYMENT FOR?</th>
                                     </thead>
-                                    <tbody id = "openRequest">
+                                    <tbody id ="openRequest">
                                     <tr>
                                         <td> </td>
                                         <td>$</td>
@@ -144,7 +144,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-
+                                <button onclick="populateRequestsTable(false)">Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                                     <th>REQUEST AMOUNT ($):</th>
                                     <th>WHATS THIS PAYMENT FOR?</th>
                                     </thead>
-                                    <tbody id = "closeRequest">
+                                    <tbody id ="closeRequest">
                                     <tr>
                                         <td> </td>
                                         <td>$</td>
@@ -181,7 +181,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-
+                                <button onclick="populateRequestsTable(true)">Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -229,6 +229,18 @@
 
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
-
-
+<script src="main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+        authDomain: "cs180-split.firebaseapp.com",
+        databaseURL: "https://cs180-split.firebaseio.com",
+        projectId: "cs180-split",
+        storageBucket: "cs180-split.appspot.com",
+        messagingSenderId: "638604999532"
+    };
+    firebase.initializeApp(config);
+</script>
 </html>
