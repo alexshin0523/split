@@ -42,6 +42,7 @@ function populateRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "<td> <input type='button' class='float-right' value='Close' /> </td>";
             tablecontents += "</tr>";
             closed = doc.get('closed');
             
