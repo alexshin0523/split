@@ -25,13 +25,11 @@ function populateRequestsTable(closed) {
     var reqIDs;
     var table;
     if (closed) {
-        reqIDs = getOpenRequestIDs(user);
-        table = "closeRequest";
-    } else {
         reqIDs = getClosedRequestIDs(user);
-        table = "openRequest";
+    } else {
+        reqIDs = getOpenRequestIDs(user);
     }
-
+    console.log(reqIDs);
     var tablecontents = "";
 
     for (let i = 0; i < reqIDs.length; i++) {
@@ -40,41 +38,40 @@ function populateRequestsTable(closed) {
         tablecontents += "<td>" + getRequestField(reqIDs[i], 'amount') + "</td>";
         tablecontents += "<td>" + getRequestField(reqIDs[i], 'message') + "</td>";
         tablecontents += "</tr>";
+        console.log("adding request to table");
     }
-    document.getElementById(table).innerHTML += tablecontents;
+
+    if (closed) {
+        document.getElementById("closeRequest").innerHTML += tablecontents;
+    } else {
+        console.log("Updating table.");
+        document.getElementById("openRequest").innerHTML += tablecontents;
+    }
 }
 
-function populateOpenRequestsTable(user) {
-    populateRequestsTable(user, false);
-}
-
-function populateClosedRequestsTable(user) {
-    populateRequestsTable(user, true);
-}
-
-function getRequestIDs(user, closed) {
+function getRequestIDs(user) {
   // Returns results for a query where user field in the table is equal to user variable passed in
   // Much more advanced queries are possible if needed
   var results = [];
   var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
-                .where("closed", "==", closed)
 		.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
               results.push(doc.id);
     		});
   });
+  console.log(results);
   return results;
 }
 
 function getOpenRequestIDs(user) {
-    return getRequestIDs(user, false);
+    return getRequestIDs(user);
 }
 
 function getClosedRequestIDs(user) {
-    return getRequestIDs(user, true);
+    return getRequestIDs(user);
 }
 
 // Returns the passed in field for the specified doc id.
@@ -128,7 +125,7 @@ function initFirebaseAuth() {
 }
 
 function getUserName() {
-  var username = firebase.auth().currentUser.displayName;
+  var username = firebase.auth().currentUser.email;
   console.log(username);
   return username;
 }
