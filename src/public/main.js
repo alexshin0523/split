@@ -101,7 +101,7 @@ function getRequestsTotal() {
                                 if(doc.get("closed") == false) {
                                 total += parseInt(doc.get("amount"));
                                 }
-                        document.getElementById("openTotal").innerHTML = "Total: " + total;
+                        document.getElementById("openTotal").innerHTML = "Total: $" + total;
                 });
         });	
 return total;
