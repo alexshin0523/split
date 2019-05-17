@@ -20,45 +20,51 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
         });
 }
 
-function populateRequestsTable(user, closed) {
-    var reqIDs;
-    var table;
-    if (closed) {
-        reqIDs = getOpenRequestIDs(user);
-        table = "closedRequests";
-    } else {
-        reqIDs = getClosedRequestIDs(user);
-        table = "openRequests";
-    }
+function populateRequestsTable() {
+    document.getElementById("closeRequest").innerHTML = "";
+    document.getElementById("openRequest").innerHTML = "";
+    var closed = false;
 
+    var user = getUserName();
     var tablecontents = "";
+    var closedcontents = "";
+    var opencontents = "";
 
-    for (let i = 0; i < reqIDs.length; i++) {
-        tablecontents += "<tr>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'recipient') + "</td>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'amount') + "</td>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'message') + "</td>";
-        tablecontents += "</tr>";
-    }
-    document.getElementById(table).innerHTML += tablecontents;
+    var query = firebase.firestore().collection('requests')
+                                    .where("user", "==", user)
+                                    .get()
+                                    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            closedcontents = "";
+            opencontents = "";
+            tablecontents = "";
+            tablecontents += "<tr>";
+            tablecontents += "<td>" + doc.get('recipient') + "</td>";
+            tablecontents += "<td>" + doc.get('amount') + "</td>";
+            tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "</tr>";
+            closed = doc.get('closed');
+            
+            if (closed) {
+                closedcontents = tablecontents;
+            } else {
+                opencontents = tablecontents;
+            }
+            document.getElementById("closeRequest").innerHTML += closedcontents;    
+            document.getElementById("openRequest").innerHTML += opencontents;            
+        });
+    });
+
+    getRequestsTotal();
 }
 
-function populateOpenRequestsTable(user) {
-    populateRequestsTable(user, false);
-}
-
-function populateClosedRequestsTable(user) {
-    populateRequestsTable(user, true);
-}
-
-function getRequestIDs(user, closed) {
+function getRequestIDs(user) {
   // Returns results for a query where user field in the table is equal to user variable passed in
   // Much more advanced queries are possible if needed
   var results = [];
   var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
-                .where("closed", "==", closed)
 		.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
@@ -69,11 +75,11 @@ function getRequestIDs(user, closed) {
 }
 
 function getOpenRequestIDs(user) {
-    return getRequestIDs(user, false);
+    return getRequestIDs(user);
 }
 
 function getClosedRequestIDs(user) {
-    return getRequestIDs(user, true);
+    return getRequestIDs(user);
 }
 
 // Returns the passed in field for the specified doc id.
@@ -82,17 +88,20 @@ function getRequestField(id, field) {
     return firebase.firestore().collection('requests').doc(id).get(field);
 }
 
-function getRequestsTotal(user) {
-var total = 0;
+function getRequestsTotal() {
+    var total = 0;
+    var user = getUserName();
 
-var query = firebase.firestore()
+    var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
                 .get()
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
+                                if(doc.get("closed") == false) {
                                 total += parseInt(doc.get("amount"));
-                                console.log("curr total: ", total);
+                                }
+                        document.getElementById("openTotal").innerHTML = "Total: $" + total;
                 });
         });	
 return total;
@@ -127,8 +136,9 @@ function initFirebaseAuth() {
 }
 
 function getUserName() {
-  var username = firebase.auth().currentUser.displayName;
-  console.log(username);
+  var username = firebase.auth().currentUser.email;
+  //console.log(username);
+  return username;
 }
 
 // Returns true if a user is signed-in.
