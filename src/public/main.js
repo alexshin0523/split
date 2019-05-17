@@ -35,6 +35,8 @@ function populateRequestsTable() {
                                     .get()
                                     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            closedcontents = "";
+            opencontents = "";
             tablecontents = "";
             tablecontents += "<tr>";
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
