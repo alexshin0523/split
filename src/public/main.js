@@ -20,33 +20,38 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
         });
 }
 
-function populateRequestsTable(closed) {
+function populateRequestsTable() {
+    document.getElementById("closeRequest").innerHTML = "";
+    document.getElementById("openRequest").innerHTML = "";
+    var closed = false;
+
     var user = getUserName();
-    var reqIDs;
-    var table;
-    if (closed) {
-        reqIDs = getClosedRequestIDs(user);
-    } else {
-        reqIDs = getOpenRequestIDs(user);
-    }
-    console.log(reqIDs);
     var tablecontents = "";
+    var closedcontents = "";
+    var opencontents = "";
 
-    for (let i = 0; i < reqIDs.length; i++) {
-        tablecontents += "<tr>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'recipient') + "</td>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'amount') + "</td>";
-        tablecontents += "<td>" + getRequestField(reqIDs[i], 'message') + "</td>";
-        tablecontents += "</tr>";
-        console.log("adding request to table");
-    }
-
-    if (closed) {
-        document.getElementById("closeRequest").innerHTML += tablecontents;
-    } else {
-        console.log("Updating table.");
-        document.getElementById("openRequest").innerHTML += tablecontents;
-    }
+    var query = firebase.firestore().collection('requests')
+                                    .where("user", "==", user)
+                                    .get()
+                                    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            tablecontents = "";
+            tablecontents += "<tr>";
+            tablecontents += "<td>" + doc.get('recipient') + "</td>";
+            tablecontents += "<td>" + doc.get('amount') + "</td>";
+            tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "</tr>";
+            closed = doc.get('closed');
+            
+            if (closed) {
+                closedcontents = tablecontents;
+            } else {
+                opencontents = tablecontents;
+            }
+            document.getElementById("closeRequest").innerHTML += closedcontents;    
+            document.getElementById("openRequest").innerHTML += opencontents;            
+        });
+    });
 }
 
 function getRequestIDs(user) {
@@ -62,7 +67,6 @@ function getRequestIDs(user) {
               results.push(doc.id);
     		});
   });
-  console.log(results);
   return results;
 }
 
