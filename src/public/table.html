@@ -10,7 +10,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     
-    <script src="main.js"></script>
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -120,7 +119,7 @@
                                 <p class="category">Here is every request that is stil open</p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped" >
+                                <table class="table table-hover table-striped">
                                     <thead>
                                     <th>RECIPIENT'S EMAIL:</th>
                                     <th>REQUEST AMOUNT ($):</th>
@@ -157,16 +156,22 @@
                                     <th>RECIPIENT'S EMAIL:</th>
                                     <th>REQUEST AMOUNT ($):</th>
                                     <th>WHATS THIS PAYMENT FOR?</th>
-                                    <th class = "float-lg-right">Remove Request</th>
                                     </thead>
                                     <tbody id ="closeRequest">
                                     <tr>
                                         <td> </td>
                                         <td>$</td>
                                         <td> </td>
-                                        <td class = "float-right">
-                                            <button >Remove</button>
-                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td>$</td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td>$</td>
+                                        <td> </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -217,16 +222,12 @@
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
-        authDomain: "cs180-split.firebaseapp.com",
-        databaseURL: "https://cs180-split.firebaseio.com",
-        projectId: "cs180-split",
-        storageBucket: "cs180-split.appspot.com",
-        messagingSenderId: "638604999532"
-    };
-    firebase.initializeApp(config);
+<script src="./main.js"></script>
+<script defer>
+firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
+    populateRequestsTable();
+    getRequestsTotal();
+    });
 </script>
 </html>
+

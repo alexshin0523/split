@@ -1,3 +1,23 @@
+var config = {
+         apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
+         authDomain: "cs180-split.firebaseapp.com",
+         databaseURL: "https://cs180-split.firebaseio.com",
+         projectId: "cs180-split",
+         storageBucket: "cs180-split.appspot.com",
+         messagingSenderId: "638604999532"
+     };
+firebase.initializeApp(config);
+
+var currUserEmail;
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        currUserEmail = user.email;
+    }
+    else {
+        currUserEmail = "";
+    }
+});
+
 // Save a new request to Firebase
 function saveRequest(sender_name, recipient_name, amount_requested, request_memo) {
     // Check if amount requested is an integer
@@ -105,7 +125,10 @@ function closeRequest(id) {
 function getRequestsTotal() {
     var total = 0;
     var user = getUserName();
-
+    if(!user) {
+        document.getElementById("openTotal").innerHTML = "Total Owed: $0";
+        return;
+    }
     var query = firebase.firestore()
                 .collection('requests')
                 .where("user", "==", user)
@@ -115,7 +138,7 @@ function getRequestsTotal() {
                                 if(doc.get("closed") == false) {
                                 total += parseInt(doc.get("amount"));
                                 }
-                        document.getElementById("openTotal").innerHTML = "Total: $" + total;
+                        document.getElementById("openTotal").innerHTML = "Total Owed: $" + total;
                 });
         });	
 return total;
@@ -131,13 +154,6 @@ function saveUser(fullname, useremail) {
     });
 }
 
-function onRequestFormSubmit(e) {
-  e.preventDefault();
-  // Will probably want to add some check on data that is passed in
-  // Pass Data to saveRequest
-  saveRequest("test1", "test2", 1, "test3");
-}
-
 function signOut(){
   // Sign out of Firebase.
   firebase.auth().signOut();
@@ -150,15 +166,10 @@ function initFirebaseAuth() {
 }
 
 function getUserName() {
-  var username = firebase.auth().currentUser.email;
-  //console.log(username);
-  return username;
+  return currUserEmail;
 }
 
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
-
-//var requestFormElement = document.getElementById('requestform');
-//requestFormElement.addEventListener('requestbutton', onRequestFormSubmit);
