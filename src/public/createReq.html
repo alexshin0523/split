@@ -145,8 +145,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="button" id="requestbutton" value="Submit" onclick="request_func()"/>
-                                    <a href="requestT.html">Send Request</a>
+                                    <input type="button" id="requestbutton" value="Submit" onclick="request_func()" onclick="window.location.href = 'requestT.html';"/>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -223,6 +222,7 @@
 <script>
     function request_func(){
         console.log("Request Clicked");
+        window.location = 'requestT.html';
         var recipient = document.getElementById("recipientuser").value;
         var amount = document.getElementById("amount").value;
         var amountInt = parseFloat(amount);
