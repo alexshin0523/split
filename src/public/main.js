@@ -42,7 +42,7 @@ function populateRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
-            tablecontents += "<td> <input type='button' class='float-right' value='Close' /> </td>";
+            tablecontents += "<td> <input type='button' onclick=\"closeRequest('" + doc.id + "')\" class='float-right' value='Close' > </td>";
             tablecontents += "</tr>";
             closed = doc.get('closed');
             
@@ -87,6 +87,19 @@ function getClosedRequestIDs(user) {
 // Example usage getRequestField('doc1', 'amount') returns amount field for doc1.
 function getRequestField(id, field) {
     return firebase.firestore().collection('requests').doc(id).get(field);
+}
+
+function closeRequest(id) {
+    var reqRef = firebase.firestore().collection('requests').doc(id);
+    reqRef.update({
+        closed: true
+    })
+    .then(function() {
+        console.log("Doc ", id, " closed successfully.");
+    })
+    .catch(function(error) {
+        console.error("Could not close document ", id);
+    });
 }
 
 function getRequestsTotal() {
