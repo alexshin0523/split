@@ -145,7 +145,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="button" id="requestbutton" value="Submit" onclick="request_func()" href="requestT.html"/>
+                                    <input type="button" id="requestbutton" value="Submit" onclick="request_func()"/>
                                     <a href="requestT.html">Send Request</a>
                                     <div class="clearfix"></div>
                                 </form>
@@ -177,10 +177,22 @@
 
 </body>
 
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 <script>
-    // Initialize Firebase
-    var config = {
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+
+<script>
+    // TODO: Replace the following with your app's Firebase project configuration
+    var firebaseConfig = {
         apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
         authDomain: "cs180-split.firebaseapp.com",
         databaseURL: "https://cs180-split.firebaseio.com",
@@ -188,8 +200,25 @@
         storageBucket: "cs180-split.appspot.com",
         messagingSenderId: "638604999532"
     };
-    firebase.initializeApp(config);
-    </script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+<script src="main.js" type="text/javascript"></script>
+
+<script>
+    var useremail;  //NOTE: if you create a variable in a javascript tag and you declare it outside of a function
+                    //you can use it in all your other script tags as well
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            //Requesting user's email will be pulled from whoever is currently logged in.
+            useremail = user.email;
+        }
+        else {
+            window.location = 'index.html'; //After logout, redirect to index.
+        }
+    });
+</script>
 
 <script>
     function request_func(){
@@ -200,8 +229,7 @@
         var message = document.getElementById("message").value;
         //using the useremail variable declared from the previous script
         saveRequest(useremail, recipient, amountInt, message);
-        console.log(loadRequests(useremail));
-        getRequestsTotal(useremail);
+        //console.log(loadRequests(useremail));
     }
 </script>
     <!--   Core JS Files   -->
