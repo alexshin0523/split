@@ -91,6 +91,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <!--<script>displayWelcomeMessage()</script>-->
                     <a class="navbar-brand" href="#">Dashboard</a>
                 </div>
                 <div class="collapse navbar-collapse">
@@ -122,6 +123,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
+                        <h4 id="welcomeMessage"></h4>
                         <div class="card">
 
                             <div class="header">
@@ -150,7 +152,7 @@
                 </div>
 
 
-
+                <!--
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card ">
@@ -175,6 +177,83 @@
                         </div>
                     </div>
 
+                -->
+                <h4 id="openTotal"></h4>
+                <script>getRequestsTotal();</script>
+                    <div class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h4 class="title">Open Requests</h4>
+                                            <p class="category">Here is every request that is stil open</p>
+                                        </div>
+                                        <div class="content table-responsive table-full-width">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                <th>RECIPIENT'S EMAIL:</th>
+                                                <th>REQUEST AMOUNT ($):</th>
+                                                <th>WHATS THIS PAYMENT FOR?</th>
+                                                <th class = "float-lg-right">Close Request</th>
+                                                </thead>
+                                                <tbody id ="openRequest">
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>$</td>
+                                                    <td> </td>
+                                                    <td class = "float-right">
+                                                        <button >Close</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <button onclick="populateRequestsTable(false)">Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h4 class="title">Closed Requests</h4>
+                                            <p class="category">Here is a table of all requests that have been completed</p>
+                                        </div>
+                                        <div class="content table-responsive table-full-width">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <th>RECIPIENT'S EMAIL:</th>
+                                                <th>REQUEST AMOUNT ($):</th>
+                                                <th>WHATS THIS PAYMENT FOR?</th>
+                                                </thead>
+                                                <tbody id ="closeRequest">
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>$</td>
+                                                    <td> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>$</td>
+                                                    <td> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td>$</td>
+                                                    <td> </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <button onclick="populateRequestsTable(true)">Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+            
+            
+                            </div>
+                        </div>
+                    </div>
+<!--
                     <div class="col-md-6">
                         <div class="card ">
                             <div class="header">
@@ -305,6 +384,8 @@
             </div>
         </div>
 
+    -->
+
 
         <footer class="footer">
             <div class="container-fluid">
@@ -386,5 +467,14 @@
     });
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+<script src="./main.js"></script>
+<script defer>
+    firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
+        populateRequestsTable();
+        getRequestsTotal();
+        displayWelcomeMessage();
+    });
+</script>
 
 </html>

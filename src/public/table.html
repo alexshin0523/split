@@ -28,6 +28,14 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    <!--     The text was being displayed on the very left so I just added this to move it a little towards the right-->
+    <style type="text/css">
+        
+         .tab { margin-left: 40px; }
+        
+    </style>
+
 </head>
 <body>
 
@@ -109,6 +117,7 @@
             </div>
         </nav>
 
+        <h4 class="tab" id="openTotal"></h4>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -142,10 +151,10 @@
                         </div>
                     </div>
                     
-                    <p id="openTotal"></p>
+                    
                     <script>getRequestsTotal();</script>
                     <div class="col-md-12">
-                        <div class="card card-plain">
+                        <div class="card">
                             <div class="header">
                                 <h4 class="title">Closed Requests</h4>
                                 <p class="category">Here is a table of all requests that have been completed</p>

@@ -49,7 +49,7 @@ function populateRequestsTable() {
     var tablecontents = "";
     var closedcontents = "";
     var opencontents = "";
-
+    
     var query = firebase.firestore().collection('requests')
                                     .where("user", "==", user)
                                     .get()
@@ -172,4 +172,11 @@ function getUserName() {
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
+}
+
+//to display welcome message at top of dashboard.
+function displayWelcomeMessage() {
+    var user = getUserName();
+
+    document.getElementById("welcomeMessage").innerHTML = "Welcome, " + user;
 }
