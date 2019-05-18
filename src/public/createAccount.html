@@ -54,7 +54,10 @@
     </form>
 
     <a><button onclick="createAccount()" class="main-btn" style="width:auto;">Create Account</button>
-    <br>
+	<br>
+	<h2 style="color:white">Or<br></h2>
+	<a><button onclick="googleSignIn()" class="main-btn" style="width:auto;">Sign Up with Google</button>
+	<br>
     <a href='index.html'><button class="main-btn" style="width:auto;">Back</button>
     
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
@@ -71,6 +74,18 @@
       };
     // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+
+	//Sign in with a Google account.
+ 	googleSignIn=()=>{
+    	base_provider = new firebase.auth.GoogleAuthProvider()
+    	firebase.auth().signInWithPopup(base_provider).then(function(result){
+     	 console.log(result)
+      	console.log("Success, Google Account Linked")
+    	}).catch(function(err) {
+     		 console.log(err)
+     		 console.log("Failed to link google account")
+    	})
+    }
  </script>
 
 
