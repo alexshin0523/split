@@ -55,6 +55,7 @@ function populateRequestsTable() {
                                     .get()
                                     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            closed = doc.get('closed');
             closedcontents = "";
             opencontents = "";
             tablecontents = "";
@@ -62,9 +63,11 @@ function populateRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
-            tablecontents += "<td> <input type='button' onclick=\"closeRequest('" + doc.id + "')\" class='float-right' value='Close' > </td>";
+            
+            if (!closed) {
+                tablecontents += "<td> <input type='button' onclick=\"closeRequest('" + doc.id + "')\" class='float-right' value='Close' > </td>";
+            }
             tablecontents += "</tr>";
-            closed = doc.get('closed');
             
             if (closed) {
                 closedcontents = tablecontents;
