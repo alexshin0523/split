@@ -57,6 +57,7 @@ function populateRequestsTable() {
     
     var query = firebase.firestore().collection('requests')
                                     .where("user", "==", user)
+                                    .orderBy('timestamp', 'desc')
                                     .get()
                                     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
