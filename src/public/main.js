@@ -1,3 +1,4 @@
+
 var config = {
          apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
          authDomain: "cs180-split.firebaseapp.com",
@@ -18,6 +19,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+
 // Save a new request to Firebase
 function saveRequest(sender_name, recipient_name, amount_requested, request_memo) {
     // Check if amount requested is an integer
@@ -34,7 +36,10 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
             amount: amount_requested,
             message: request_memo,
             closed: false,
-	        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function(result){
+            console.log(result)
+            window.location = 'requestT.html';
         }).catch(function(error) {
 	        console.error('Error writing request to Firebase Database', error);
         });
