@@ -148,10 +148,11 @@
 
                                     <div>
                                     <label>Tag</label>
-                                    <select class="form-control">
-                                        <option>Bills/Rent</option>
+                                    <select class="form-control" id="tag">
+                                        <option>Bills</option>
                                         <option>Food</option>
                                         <option>Fun</option>
+                                        <option>Other</option>
                                     </select>
                                     </div>
 
@@ -239,8 +240,9 @@
         var amount = document.getElementById("amount").value;
         var amountInt = parseFloat(amount);
         var message = document.getElementById("message").value;
+        var tag = document.getElementById("tag").value;
         //using the useremail variable declared from the previous script
-        saveRequest(useremail, recipient, amountInt, message);
+        saveRequest(useremail, recipient, amountInt, message, tag);
         //console.log(loadRequests(useremail));
     }
 </script>

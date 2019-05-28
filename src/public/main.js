@@ -21,7 +21,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 // Save a new request to Firebase
-function saveRequest(sender_name, recipient_name, amount_requested, request_memo) {
+function saveRequest(sender_name, recipient_name, amount_requested, request_memo, request_tag) {
     // Check if amount requested is an integer
     if (!Number.isInteger(amount_requested)) {
         console.error('Amount requested is not integer');
@@ -36,6 +36,7 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
             amount: amount_requested,
             message: request_memo,
             closed: false,
+            tag: request_tag,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(function(result){
             console.log(result)
