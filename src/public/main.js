@@ -251,6 +251,8 @@ function getUserName() {
   return currUserEmail;
 }
 
+
+
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
@@ -266,8 +268,28 @@ function displayWelcomeMessage() {
 function displayUser() {
     var user = getUserName();
 
+    var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        firstname = doc.get("fname");
+                        lastname = doc.get("lname");
+                        aboutMe = doc.get("about");
+                        document.getElementById("useremail").innerHTML = user;
+                        document.getElementById("userfullname").innerHTML = firstname + " " + lastname;
+                        document.getElementById("useraboutme").innerHTML = aboutMe;
+                    });
+                });
+}
+/*
+function displayUser() {
+    var user = getUserName();
+
     document.getElementById("username").innerHTML = user;
 }
+*/
 
 //delete currently signed in user
 function deleteUser() {
