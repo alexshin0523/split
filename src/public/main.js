@@ -336,7 +336,7 @@ function updateProfile() {
     
     var query = firebase.firestore()
                 .collection('users')
-                .where("email", "==", useremail)
+                .where("email", "==", getUserName())
                 .get()
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
