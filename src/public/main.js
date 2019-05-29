@@ -1,4 +1,3 @@
-
 var config = {
          apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
          authDomain: "cs180-split.firebaseapp.com",
@@ -278,4 +277,27 @@ function deleteUser() {
     console.log("An error occured.");
     console.log(error);
     });
+}
+
+//grab user info to display on user.html
+function populateUserProfile(user) {
+    var firstname = "";
+    var lastname = "";
+    var aboutMe = "";
+    var query = firebase.firestore()
+                .collection('users')
+                .where("user", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        firstname = doc.fname;
+                        lastname = doc.lname;
+                        aboutME = doc.about;
+                    });
+                })
+}
+
+//update user profile with the data in the fields.
+function updateProfile() {
+
 }
