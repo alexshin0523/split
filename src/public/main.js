@@ -46,8 +46,7 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
         });
 }
 
-function populateRequestsTable() {
-    document.getElementById("closeRequest").innerHTML = "";
+function populateOpenRequestsTable() {
     document.getElementById("openRequest").innerHTML = "";
     var closed = false;
 
@@ -76,12 +75,9 @@ function populateRequestsTable() {
             }
             tablecontents += "</tr>";
 
-            if (closed) {
-                closedcontents = tablecontents;
-            } else {
+            if (!closed) {
                 opencontents = tablecontents;
             }
-            document.getElementById("closeRequest").innerHTML += closedcontents;
             document.getElementById("openRequest").innerHTML += opencontents;
         });
     });
@@ -89,9 +85,78 @@ function populateRequestsTable() {
     getRequestsTotal();
 }
 
-function populateRequestorsTable() {
-    document.getElementById("closeRequestors").innerHTML = "";
+function populateClosedRequestsTable() {
+    document.getElementById("closeRequest").innerHTML = "";
+    var closed = false;
+
+    var user = getUserName();
+    var tablecontents = "";
+    var closedcontents = "";
+    var opencontents = "";
+
+    var query = firebase.firestore().collection('requests')
+                                    .where("user", "==", user)
+                                    .orderBy('timestamp', 'desc')
+                                    .get()
+                                    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            closed = doc.get('closed');
+            closedcontents = "";
+            opencontents = "";
+            tablecontents = "";
+            tablecontents += "<tr>";
+            tablecontents += "<td>" + doc.get('recipient') + "</td>";
+            tablecontents += "<td>" + doc.get('amount') + "</td>";
+            tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "</tr>";
+
+            if (closed) {
+                closedcontents = tablecontents;
+            }
+            document.getElementById("closeRequest").innerHTML += closedcontents;
+        });
+    });
+
+    getRequestsTotal();
+}
+
+function populateOpenRequestorsTable() {
     document.getElementById("openRequestors").innerHTML = "";
+    var closed = false;
+
+    var user = getUserName();
+    var tablecontents = "";
+    var closedcontents = "";
+    var opencontents = "";
+
+    var query = firebase.firestore().collection('requests')
+                                    .where("recipient", "==", user)
+                                    .orderBy('timestamp', 'desc')
+                                    .get()
+                                    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            closed = doc.get('closed');
+            closedcontents = "";
+            opencontents = "";
+            tablecontents = "";
+            tablecontents += "<tr>";
+            tablecontents += "<td>" + doc.get('user') + "</td>";
+            tablecontents += "<td>" + doc.get('amount') + "</td>";
+            tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "</tr>";
+
+            if (!closed) {
+                opencontents = tablecontents;
+            }
+            document.getElementById("openRequestors").innerHTML += opencontents;
+        });
+    });
+
+    getRequestorsTotal();
+}
+
+function populateClosedRequestorsTable() {
+    document.getElementById("closeRequestors").innerHTML = "";
     var closed = false;
 
     var user = getUserName();
@@ -117,15 +182,12 @@ function populateRequestorsTable() {
 
             if (closed) {
                 closedcontents = tablecontents;
-            } else {
-                opencontents = tablecontents;
             }
             document.getElementById("closeRequestors").innerHTML += closedcontents;
-            document.getElementById("openRequestors").innerHTML += opencontents;
         });
     });
 
-    getRequestsTotal();
+    getRequestorsTotal();
 }
 
 function getRequestIDs(user) {
@@ -321,7 +383,7 @@ function populateUserProfile() {
                         firstname = doc.get("fname");
                         lastname = doc.get("lname");
                         aboutMe = doc.get("about");
-                        document.getElementById("fnameForm").value = firstname;    
+                        document.getElementById("fnameForm").value = firstname;
                         document.getElementById("lnameForm").value = lastname;
                         document.getElementById("aboutForm").value = aboutMe;
                     });
@@ -333,7 +395,7 @@ function updateProfile() {
     var fnameVal = document.getElementById("fnameForm").value;
     var lnameVal = document.getElementById("lnameForm").value;
     var aboutVal = document.getElementById("aboutForm").value;
-    
+
     var query = firebase.firestore()
                 .collection('users')
                 .where("email", "==", getUserName())
@@ -345,7 +407,7 @@ function updateProfile() {
                                 lname: lnameVal,
                                 about: aboutVal
                                 });
-                        }); 
+                        });
                     }).catch(function(error) {
                         console.error('Error writing request to Firebase Database', error);
                     });
