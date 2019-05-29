@@ -13,6 +13,7 @@ var currUserEmail;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         currUserEmail = user.email;
+        saveUser(currUserEmail);
     }
     else {
         currUserEmail = "";
@@ -154,14 +155,25 @@ function getRequestsTotal() {
 return total;
 }
 
-function saveUser(fullname, useremail) {
-  return firebase.firestore().collection('users').add({
-  name: fullname,
-  email: useremail,
-	timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-	console.error('Error writing request to Firebase Database', error);
-    });
+function saveUser(useremail) {
+  var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", useremail)
+                .get()
+                .then(function(querySnapshot) {
+                    if(!querySnapshot.empty) {return;}
+                    else {
+                        return firebase.firestore().collection('users').add({
+                                    fname: '',
+                                    lname: '',
+                                    about: '',
+                                    email: useremail,
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        }).catch(function(error) {
+                            console.error('Error writing request to Firebase Database', error);
+                        });
+                    }
+                });
 }
 
 function signOut(){
