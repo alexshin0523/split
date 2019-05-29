@@ -32,10 +32,6 @@
 </head>
 <body>
 
-<script>
-    populateUserProfile();
-    console.log(firstname);
-</script>
 <div class="wrapper">
     <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
 
@@ -130,13 +126,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="First Name" value=>
+                                                <input type="text" class="form-control" placeholder="First Name" id="firstname">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name">
+                                                <input type="text" class="form-control" placeholder="Last Name" id="lastname">
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +141,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Enter Your Bio"></textarea>
+                                                <textarea rows="5" class="form-control" placeholder="Enter Your Bio" id="aboutme"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -244,6 +240,7 @@
 <script defer>
     firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
         displayUser();
+        populateUserProfile();
     });
 </script>
 </html>

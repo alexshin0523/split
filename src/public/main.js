@@ -276,7 +276,6 @@ function deleteUser() {
     user.delete().then(function() {
     // User deleted.
     console.log("User deleted successfully.");
-    console.log("Redirecting to home page.");
     window.location="deleteT.html";
     }).catch(function(error) {
     // An error happened.
@@ -286,21 +285,25 @@ function deleteUser() {
 }
 
 //grab user info to display on user.html
-function populateUserProfile(user) {
+function populateUserProfile() {
+    var user = getUserName();
     var firstname = "";
     var lastname = "";
     var aboutMe = "";
     var query = firebase.firestore()
                 .collection('users')
-                .where("user", "==", user)
+                .where("email", "==", user)
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        firstname = doc.fname;
-                        lastname = doc.lname;
-                        aboutME = doc.about;
+                        firstname = doc.get("fname");
+                        lastname = doc.get("lname");
+                        aboutMe = doc.get("about");
+                        document.getElementById("firstname").value = firstname;    
+                        document.getElementById("lastname").value = lastname;
+                        document.getElementById("aboutme").value = aboutMe;
                     });
-                })
+                });
 }
 
 //update user profile with the data in the fields.
