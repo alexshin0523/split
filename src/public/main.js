@@ -330,5 +330,23 @@ function populateUserProfile() {
 
 //update user profile with the data in the fields.
 function updateProfile() {
-
+    var fnameVal = document.getElementById("fnameForm").value;
+    var lnameVal = document.getElementById("lnameForm").value;
+    var aboutVal = document.getElementById("aboutForm").value;
+    
+    var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", useremail)
+                .get()
+                .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            firebase.firestore().collection('users').doc(doc.id).update({
+                                fname: fnameVal,
+                                lname: lnameVal,
+                                about: aboutVal
+                                });
+                        }); 
+                    }).catch(function(error) {
+                        console.error('Error writing request to Firebase Database', error);
+                    });
 }
