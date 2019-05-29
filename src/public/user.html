@@ -32,10 +32,6 @@
 </head>
 <body>
 
-<script>
-    populateUserProfile();
-    console.log(firstname);
-</script>
 <div class="wrapper">
     <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
 
@@ -241,6 +237,7 @@
 <script defer>
     firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
         displayUser();
+        populateUserProfile();
     });
 </script>
 </html>
