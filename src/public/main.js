@@ -199,7 +199,7 @@ function deleteUser() {
     // User deleted.
     console.log("User deleted successfully.");
     console.log("Redirecting to home page.");
-    window.location="index.html";
+    window.location="deleteT.html";
     }).catch(function(error) {
     // An error happened.
     console.log("An error occured.");
