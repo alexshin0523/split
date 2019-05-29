@@ -28,7 +28,7 @@ function saveRequest(sender_name, recipient_name, amount_requested, request_memo
         return false;
     }
     // Check if recipient exists
-    // Not possible with current firebase setup :(    
+    // Not possible with current firebase setup :(
 
     return firebase.firestore().collection('requests').add({
 	        user: sender_name,
@@ -55,7 +55,7 @@ function populateRequestsTable() {
     var tablecontents = "";
     var closedcontents = "";
     var opencontents = "";
-    
+
     var query = firebase.firestore().collection('requests')
                                     .where("user", "==", user)
                                     .orderBy('timestamp', 'desc')
@@ -70,19 +70,58 @@ function populateRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
-            
+
             if (!closed) {
                 tablecontents += "<td> <input type='button' onclick=\"closeRequest('" + doc.id + "')\" class='float-right' value='Close' > </td>";
             }
             tablecontents += "</tr>";
-            
+
             if (closed) {
                 closedcontents = tablecontents;
             } else {
                 opencontents = tablecontents;
             }
-            document.getElementById("closeRequest").innerHTML += closedcontents;    
-            document.getElementById("openRequest").innerHTML += opencontents;            
+            document.getElementById("closeRequest").innerHTML += closedcontents;
+            document.getElementById("openRequest").innerHTML += opencontents;
+        });
+    });
+
+    getRequestsTotal();
+}
+
+function populateRequestorsTable() {
+    document.getElementById("closeRequestors").innerHTML = "";
+    document.getElementById("openRequestors").innerHTML = "";
+    var closed = false;
+
+    var user = getUserName();
+    var tablecontents = "";
+    var closedcontents = "";
+    var opencontents = "";
+
+    var query = firebase.firestore().collection('requests')
+                                    .where("recipient", "==", user)
+                                    .orderBy('timestamp', 'desc')
+                                    .get()
+                                    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            closed = doc.get('closed');
+            closedcontents = "";
+            opencontents = "";
+            tablecontents = "";
+            tablecontents += "<tr>";
+            tablecontents += "<td>" + doc.get('user') + "</td>";
+            tablecontents += "<td>" + doc.get('amount') + "</td>";
+            tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "</tr>";
+
+            if (closed) {
+                closedcontents = tablecontents;
+            } else {
+                opencontents = tablecontents;
+            }
+            document.getElementById("closeRequestors").innerHTML += closedcontents;
+            document.getElementById("openRequestors").innerHTML += opencontents;
         });
     });
 
@@ -136,7 +175,7 @@ function getRequestsTotal() {
     var total = 0;
     var user = getUserName();
     if(!user) {
-        document.getElementById("openTotal").innerHTML = "Total Owed: $0";
+        document.getElementById("openTotal").innerHTML = "Total Owed to You: $0";
         return;
     }
     var query = firebase.firestore()
@@ -148,9 +187,31 @@ function getRequestsTotal() {
                                 if(doc.get("closed") == false) {
                                 total += parseInt(doc.get("amount"));
                                 }
-                        document.getElementById("openTotal").innerHTML = "Total Owed: $" + total;
+                        document.getElementById("openTotal").innerHTML = "Total Owed to You: $" + total;
                 });
-        });	
+        });
+return total;
+}
+
+function getRequestorsTotal() {
+    var total = 0;
+    var user = getUserName();
+    if(!user) {
+        document.getElementById("openTotaluo").innerHTML = "Total You Owe: $0";
+        return;
+    }
+    var query = firebase.firestore()
+                .collection('requests')
+                .where("recipient", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                                if(doc.get("closed") == false) {
+                                total += parseInt(doc.get("amount"));
+                                }
+                        document.getElementById("openTotaluo").innerHTML = "Total You Owe: $" + total;
+                });
+        });
 return total;
 }
 

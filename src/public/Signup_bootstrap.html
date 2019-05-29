@@ -96,11 +96,9 @@
     }
 </script>
 
-
-
 <script>
 	function createAccount(){
-    console.log("Request Clicked"); 
+    console.log("Request Clicked");
     var useremail = document.getElementById("username").value;
     var userpw = document.getElementById("pass").value;
 	  firebase.auth().createUserWithEmailAndPassword(useremail, userpw).then(function(result){
@@ -116,24 +114,6 @@
 	}
 </script>
 
-<script>
-		//Sign in with email and password.
-		function emailSignIn(){
-		  console.log("Request Clicked"); 
-		  var useremail = document.getElementById("username").value;
-          var userpw = document.getElementById("pass").value;
-		  firebase.auth().signInWithEmailAndPassword(useremail, userpw).then(function(result){
-			console.log(result)
-			console.log("Success, logged in")
-		  }).catch(function(error) {
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			console.log(error);
-		  });
-		}
-      </script>
-      
 	<!--Waits for a change in the user variable. Once you log in, the user variable is populated-->
 	<script>
             firebase.auth().onAuthStateChanged(user => {
@@ -142,7 +122,6 @@
                 }
             });
         </script>
-
 
 </body>
 </html>
