@@ -240,4 +240,10 @@
             }
         });
     </script>
+
+<script defer>
+    firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
+        displayUser();
+    });
+</script>
 </html>
