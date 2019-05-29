@@ -190,3 +190,19 @@ function displayWelcomeMessage() {
 
     document.getElementById("welcomeMessage").innerHTML = "Welcome, " + user;
 }
+
+//delete currently signed in user
+function deleteUser() {
+    var user = firebase.auth().currentUser;
+
+    user.delete().then(function() {
+    // User deleted.
+    console.log("User deleted successfully.");
+    console.log("Redirecting to home page.");
+    window.location="index.html";
+    }).catch(function(error) {
+    // An error happened.
+    console.log("An error occured.");
+    console.log(error);
+    });
+}

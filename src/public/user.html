@@ -173,7 +173,7 @@
                             </div>
                             <hr>
                             <div class="text-center">
-                                <button class="btn btn-info btn-fill">Delete Account</button>
+                                <button class="btn btn-info btn-fill" onclick="deleteUser()">Delete Account</button>
                             </div>
 
                         </div>
@@ -222,4 +222,18 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
+    <!-- our own main.js functions  -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script src="./main.js"></script>
+
+    <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                //do something with the user information
+            }
+            else {
+                //do something when the user is not signed in.
+            }
+        });
+    </script>
 </html>
