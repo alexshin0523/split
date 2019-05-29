@@ -321,9 +321,9 @@ function populateUserProfile() {
                         firstname = doc.get("fname");
                         lastname = doc.get("lname");
                         aboutMe = doc.get("about");
-                        document.getElementById("firstname").value = firstname;    
-                        document.getElementById("lastname").value = lastname;
-                        document.getElementById("aboutme").value = aboutMe;
+                        document.getElementById("fnameForm").value = firstname;    
+                        document.getElementById("lnameForm").value = lastname;
+                        document.getElementById("aboutForm").value = aboutMe;
                     });
                 });
 }
