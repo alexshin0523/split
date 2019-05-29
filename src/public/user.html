@@ -117,7 +117,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Edit Profile</h4>
+                                <h4 class="title">User Profile</h4>
                             </div>
                             <div class="content">
                                 <form>
@@ -126,13 +126,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                                <input type="text" id="fnameForm" class="form-control" placeholder="First Name" value=>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                                <input type="text" id="lnameForm" class="form-control" placeholder="Last Name">
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">A very tired UCR CS Major</textarea>
+                                                <textarea rows="5" id="aboutForm" class="form-control" placeholder="Enter Your Bio"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -162,18 +162,18 @@
                                 <div class="author">
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/logo.png" alt="..."/>
-                                         <h4 id ="username"></h4>
-                                      <h4 class="title">Mike Andrew<br />
+                                         <h4 id ="useremail"></h4>
+                                      <h4 class="title" id="userfullname"><br />
 
                                       </h4>
                                     </a>
                                 </div>
-                                <p class="description text-center"> "A Very Tired UCR CS Major"
+                                <p class="description text-center" id="useraboutme"> "A Very Tired UCR CS Major"
                                 </p>
                             </div>
                             <hr>
                             <div class="text-center">
-                                <button class="btn btn-info btn-fill" onclick="deleteUser()">Delete Account</button>
+                                <button class="btn btn-danger btn-fill" onclick="deleteUser()">Delete Account</button>
                             </div>
 
                         </div>
@@ -213,9 +213,6 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
@@ -236,4 +233,11 @@
             }
         });
     </script>
+
+<script defer>
+    firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
+        displayUser();
+        populateUserProfile();
+    });
+</script>
 </html>

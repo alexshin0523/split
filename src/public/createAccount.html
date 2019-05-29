@@ -61,7 +61,7 @@
     <a href='index.html'><button class="main-btn" style="width:auto;">Back</button>
     
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
-
+<script src="./main.js"></script>
 <script>
     // TODO: Replace the following with your app's Firebase project configuration
     var firebaseConfig = {
@@ -93,15 +93,15 @@
 <script>
 	function createAccount(){
     console.log("Account Create Clicked"); 
+    var userpw = document.getElementById("userpw").value;
+    var useremail = document.getElementById("useremail").value;    
     if(!useremail || !userpw){
         var message = "";
         if(!useremail) message += "Email field is empty.\n"; 
         if(!userpw) message += "Password is empty.\n"; 
         alert("" + message);
     }    
-    
-    var useremail = document.getElementById("useremail").value;
-    var userpw = document.getElementById("userpw").value;
+    saveUser(useremail);
 	  firebase.auth().createUserWithEmailAndPassword(useremail, userpw).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;

@@ -1,4 +1,3 @@
-
 var config = {
          apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
          authDomain: "cs180-split.firebaseapp.com",
@@ -13,6 +12,7 @@ var currUserEmail;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         currUserEmail = user.email;
+        saveUser(currUserEmail);
     }
     else {
         currUserEmail = "";
@@ -277,14 +277,25 @@ function getRequestorsTotal() {
 return total;
 }
 
-function saveUser(fullname, useremail) {
-  return firebase.firestore().collection('users').add({
-  name: fullname,
-  email: useremail,
-	timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-	console.error('Error writing request to Firebase Database', error);
-    });
+function saveUser(useremail) {
+  var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", useremail)
+                .get()
+                .then(function(querySnapshot) {
+                    if(!querySnapshot.empty) {return;}
+                    else {
+                        return firebase.firestore().collection('users').add({
+                                    fname: '',
+                                    lname: '',
+                                    about: '',
+                                    email: useremail,
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        }).catch(function(error) {
+                            console.error('Error writing request to Firebase Database', error);
+                        });
+                    }
+                });
 }
 
 function signOut(){
@@ -302,6 +313,8 @@ function getUserName() {
   return currUserEmail;
 }
 
+
+
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
@@ -314,6 +327,32 @@ function displayWelcomeMessage() {
     document.getElementById("welcomeMessage").innerHTML = "Welcome, " + user;
 }
 
+function displayUser() {
+    var user = getUserName();
+
+    var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        firstname = doc.get("fname");
+                        lastname = doc.get("lname");
+                        aboutMe = doc.get("about");
+                        document.getElementById("useremail").innerHTML = user;
+                        document.getElementById("userfullname").innerHTML = firstname + " " + lastname;
+                        document.getElementById("useraboutme").innerHTML = aboutMe;
+                    });
+                });
+}
+/*
+function displayUser() {
+    var user = getUserName();
+
+    document.getElementById("username").innerHTML = user;
+}
+*/
+
 //delete currently signed in user
 function deleteUser() {
     var user = firebase.auth().currentUser;
@@ -321,11 +360,55 @@ function deleteUser() {
     user.delete().then(function() {
     // User deleted.
     console.log("User deleted successfully.");
-    console.log("Redirecting to home page.");
     window.location="deleteT.html";
     }).catch(function(error) {
     // An error happened.
     console.log("An error occured.");
     console.log(error);
     });
+}
+
+//grab user info to display on user.html
+function populateUserProfile() {
+    var user = getUserName();
+    var firstname = "";
+    var lastname = "";
+    var aboutMe = "";
+    var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        firstname = doc.get("fname");
+                        lastname = doc.get("lname");
+                        aboutMe = doc.get("about");
+                        document.getElementById("firstname").value = firstname;
+                        document.getElementById("lastname").value = lastname;
+                        document.getElementById("aboutme").value = aboutMe;
+                    });
+                });
+}
+
+//update user profile with the data in the fields.
+function updateProfile() {
+    var fnameVal = document.getElementById("fnameForm").value;
+    var lnameVal = document.getElementById("lnameForm").value;
+    var aboutVal = document.getElementById("aboutForm").value;
+
+    var query = firebase.firestore()
+                .collection('users')
+                .where("email", "==", useremail)
+                .get()
+                .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            firebase.firestore().collection('users').doc(doc.id).update({
+                                fname: fnameVal,
+                                lname: lnameVal,
+                                about: aboutVal
+                                });
+                        });
+                    }).catch(function(error) {
+                        console.error('Error writing request to Firebase Database', error);
+                    });
 }
