@@ -264,6 +264,12 @@ function displayWelcomeMessage() {
     document.getElementById("welcomeMessage").innerHTML = "Welcome, " + user;
 }
 
+function displayUser() {
+    var user = getUserName();
+
+    document.getElementById("username").innerHTML = user;
+}
+
 //delete currently signed in user
 function deleteUser() {
     var user = firebase.auth().currentUser;
