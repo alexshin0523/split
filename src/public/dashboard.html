@@ -180,8 +180,8 @@
                     </div>
 
                 -->
-                <h4 id="openTotal"></h4>
-                <script>getRequestsTotal();</script>
+                <!-- <h4 id="openTotal"></h4>
+                <script>getRequestsTotal();</script> -->
                     <div class="content">
                         <div class="container-fluid">
                             <div class="row">
@@ -213,49 +213,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">Closed Requests</h4>
-                                            <p class="category">Here is every <b>request you've sent</b> that have been completed</p>
-                                        </div>
-                                        <div class="content table-responsive table-full-width">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                <th>RECIPIENT'S EMAIL:</th>
-                                                <th>REQUEST AMOUNT ($):</th>
-                                                <th>WHATS THIS PAYMENT FOR?</th>
-                                                </thead>
-                                                <tbody id ="closeRequest">
-                                                <tr>
-                                                    <td> </td>
-                                                    <td>$</td>
-                                                    <td> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> </td>
-                                                    <td>$</td>
-                                                    <td> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> </td>
-                                                    <td>$</td>
-                                                    <td> </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
 
-                    <h4 id="openTotaluo"></h4>
-                    <script>getRequestorsTotal();</script>
+                    <!-- <h4 id="openTotaluo"></h4>
+                    <script>getRequestorsTotal();</script> -->
                         <div class="content">
                             <div class="container-fluid">
                                 <div class="row">
@@ -271,7 +234,6 @@
                                                     <th>REQUSTOR'S EMAIL:</th>
                                                     <th>REQUEST AMOUNT ($):</th>
                                                     <th>WHATS THIS PAYMENT FOR?</th>
-                                                    <th class = "float-lg-right">Close Request</th>
                                                     </thead>
                                                     <tbody id ="openRequestors">
                                                     <tr>
@@ -284,43 +246,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="header">
-                                                <h4 class="title">Closed Requests</h4>
-                                                <p class="category">Here is every <b>request you owe</b> that have been completed</p>
-                                            </div>
-                                            <div class="content table-responsive table-full-width">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                    <th>RECIPIENT'S EMAIL:</th>
-                                                    <th>REQUEST AMOUNT ($):</th>
-                                                    <th>WHATS THIS PAYMENT FOR?</th>
-                                                    </thead>
-                                                    <tbody id ="closeRequestors">
-                                                    <tr>
-                                                        <td> </td>
-                                                        <td>$</td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> </td>
-                                                        <td>$</td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> </td>
-                                                        <td>$</td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -542,8 +467,8 @@
 <script src="./main.js"></script>
 <script defer>
     firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
-        populateRequestsTable();
-        populateRequestorsTable();
+        populateOpenRequestsTable();
+        populateOpenRequestorsTable();
         getRequestsTotal();
         getRequestorsTotal();
         displayWelcomeMessage();
