@@ -244,13 +244,22 @@
 <script>
     function request_func(){
         console.log("Request Clicked");
-        var recipient = document.getElementById("recipientuser").value;
+        var recipient0 = document.getElementById("recipientuser0").value;
+        var recipient1 = document.getElementById("recipientuser1").value;
+        var recipient2 = document.getElementById("recipientuser2").value;
+        var recipient3 = document.getElementById("recipientuser3").value;
+        var recipient4 = document.getElementById("recipientuser4").value;
+        
         var amount = document.getElementById("amount").value;
         var amountInt = parseFloat(amount);
         var message = document.getElementById("message").value;
         var tag = document.getElementById("tag").value;
         //using the useremail variable declared from the previous script
-        saveRequest(useremail, recipient, amountInt, message, tag);
+        if(recipient0 != null) saveRequest(useremail, recipient0, amountInt, message, tag);
+        if(recipient1 != null) saveRequest(useremail, recipient1, amountInt, message, tag);
+        if(recipient2 != null) saveRequest(useremail, recipient2, amountInt, message, tag);
+        if(recipient3 != null) saveRequest(useremail, recipient3, amountInt, message, tag);
+        if(recipient4 != null) saveRequest(useremail, recipient4, amountInt, message, tag);
         //console.log(loadRequests(useremail));
     }
 </script>
