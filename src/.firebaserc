@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "cs180-split"
+    "default": "cs180-split",
+    "thomas": "cs180-split"
   }
 }
