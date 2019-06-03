@@ -69,6 +69,7 @@ function populateOpenRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "<td>" + doc.get('tag') + "</td>";
 
             if (!closed) {
                 tablecontents += "<td> <input type='button' onclick=\"closeRequest('" + doc.id + "')\" class='float-right' value='Close' > </td>";
@@ -108,6 +109,7 @@ function populateClosedRequestsTable() {
             tablecontents += "<td>" + doc.get('recipient') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "<td>" + doc.get('tag') + "</td>";
             tablecontents += "</tr>";
 
             if (closed) {
@@ -143,6 +145,7 @@ function populateOpenRequestorsTable() {
             tablecontents += "<td>" + doc.get('user') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "<td>" + doc.get('tag') + "</td>";
             tablecontents += "</tr>";
 
             if (!closed) {
@@ -178,6 +181,7 @@ function populateClosedRequestorsTable() {
             tablecontents += "<td>" + doc.get('user') + "</td>";
             tablecontents += "<td>" + doc.get('amount') + "</td>";
             tablecontents += "<td>" + doc.get('message') + "</td>";
+            tablecontents += "<td>" + doc.get('tag') + "</td>";
             tablecontents += "</tr>";
 
             if (closed) {
