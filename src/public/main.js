@@ -510,3 +510,33 @@ function updateProfile() {
                         console.error('Error writing request to Firebase Database', error);
                     });
 }
+
+function populateRecentUsers() {
+    var user = getUserName();
+    if (user == '') return;
+    document.getElementById("recentRequestors").innerHTML = ""; 
+    var query = firebase.firestore()
+                        .collection('requests')
+                        .where("user", "==", user)
+                        .orderBy('timestamp', 'desc')
+                        .limit(5)
+                        .get()
+                        .then(function(querySnapshot) {
+                            querySnapshot.forEach(function(doc) {
+                               var contents = "<tr><td>" + doc.get('recipient') + "</td><td>" + doc.get('timestamp').toDate() + "</td></tr>";
+                               document.getElementById("recentRequestors").innerHTML += contents;
+                            });  
+                        })
+    var query2 = firebase.firestore()
+                         .collection('requests')
+                         .where("recipient", "==", user)
+                         .orderBy('timestamp', 'desc')
+                         .limit(5)
+                         .get()
+                         .then(function(querySnapshot) {
+                             querySnapshot.forEach(function(doc) {
+                                var contents = "<tr><td>" + doc.get('user') + "</td><td>" + doc.get('timestamp').toDate() + "</td></tr>";
+                                document.getElementById("recentRequestors").innerHTML += contents;
+                             });
+                         })
+}

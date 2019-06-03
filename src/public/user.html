@@ -268,5 +268,8 @@
         displayUser();
         populateUserProfile();
     });
+    firebase.firestore().collection('requests').onSnapshot(function(querySnap) {
+        populateRecentUsers();
+    });
 </script>
 </html>
