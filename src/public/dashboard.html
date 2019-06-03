@@ -132,38 +132,12 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        <!--
-                        <script>getTagsTotal("Bills");</script>
-                        <script>getTagsTotal("Food");</script>
-                        <script>getTagsTotal("Fun");</script>
-                        <script>getTagsTotal("Other");</script>
-                        -->
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                         
 
-                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                            google.charts.load("current", {packages:["corechart"]});
-                            google.charts.setOnLoadCallback(drawChart);
-                            function drawChart() {
-                                var data = google.visualization.arrayToDataTable([
-                                    ['Tags', 'Cash Spent'],
-                                    ['Bills/Rent',     11],
-                                    ['Food',      2],
-                                    ['Fun',  3],
-                                    ['Other',  5],
-                                ]);
 
-                                var options = {
-                                    title: 'My Spending Breakdown',
-                                    is3D: true,
-                                };
-
-                                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-                                chart.draw(data, options);
-                            }
-                        </script>
-
-                        <div id="piechart_3d" style="width: 400px; height: 400px;"></div>
+                        <div id="openpiechart_3d" style="width: 400px; height: 400px;"></div>
+                        <div id="historypiechart_3d" style="width: 400px; height: 400px;"></div>
                         <h4></h4>
                     </div>
 
@@ -477,7 +451,7 @@
         getRequestsTotal();
         getRequestorsTotal();
         displayWelcomeMessage();
-        getTags();
+        getTagsTotal();
     });
 </script>
 

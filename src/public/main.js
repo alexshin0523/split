@@ -259,8 +259,18 @@ function getRequestsTotal() {
 return total;
 }
 
-function getTagsTotal(tagtype) {
-    var total = 0;
+function getTagsTotal() {
+    var results = [];
+    var closedbills = 0;
+    var closedfun = 0;
+    var closedfood = 0;
+    var closedother = 0;
+
+    var openbills = 0;
+    var openfun = 0;
+    var openfood = 0;
+    var openother = 0;
+
     var user = getUserName();
     
     var query = firebase.firestore()
@@ -269,25 +279,81 @@ function getTagsTotal(tagtype) {
                 .get()
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
-                                if(doc.get("tag") == tagtype) {
-                                total += doc.get("amount");
+                            if(doc.get("closed") == true) {
+                                if(doc.get("tag") == "Bills") {
+                                    closedbills += doc.get("amount");
                                 }
-                        //document.getElementById("openTotal").innerHTML = "Total Owed to You: $" + total;
+                                else if(doc.get("tag") == "Fun") {
+                                    closedfun += doc.get("amount");
+                                }
+                                else if(doc.get("tag") == "Food") {
+                                    closedfood += doc.get("amount");
+                                }
+                                else if(doc.get("tag") == "Other") {
+                                    closedother += doc.get("amount");
+                                }
+                            }
+                            else if(doc.get("closed") = false) {
+                                if(doc.get("tag") == "Bills") {
+                                    openbills += doc.get("amount");
+                                }
+                                else if(doc.get("tag") == "Fun") {
+                                    openfun += doc.get("amount");
+                                }
+                                else if(doc.get("tag") == "Food") {
+                                    openfood += doc.get("amount");
+                                }
+                                else if(doc.get("tag") == "Other") {
+                                    openother += doc.get("amount");
+                                }
+                            }
+                            }
+
+                        google.charts.load("current", {packages:["corechart"]});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Tags', 'Cash Spent'],
+                                ['Bills/Rent',     openbills],
+                                ['Food',      openfood],
+                                ['Fun',  openfun],
+                                ['Other',  openother],
+                            ]);
+
+                            var options = {
+                                title: 'Open Requests Breakdown',
+                                is3D: true,
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('openpiechart_3d'));
+                            chart.draw(data, options);
+                        }
+
+                        google.charts.load("current", {packages:["corechart"]});
+                        google.charts.setOnLoadCallback(drawChart2);
+                        function drawChart2() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Tags', 'Cash Spent'],
+                                ['Bills/Rent',     closedbills],
+                                ['Food',      closedfood],
+                                ['Fun',  closedfun],
+                                ['Other',  closedother],
+                            ]);
+
+                            var options = {
+                                title: 'Spending History Breakdown',
+                                is3D: true,
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('historypiechart_3d'));
+                            chart.draw(data, options);
+                        }
+                            
+                        
                 });
         });
-return total;
 }
 
-function getTags() {
-    var results = [];
-    results.push(getTagsTotal("Bills"));
-    results.push(getTagsTotal("Food"));
-    results.push(getTagsTotal("Fun"));
-    results.push(getTagsTotal("Other"));
-
-    console.log(results);
-    return results;
-}
 
 function getRequestorsTotal() {
     var total = 0;
