@@ -251,12 +251,42 @@ function getRequestsTotal() {
                 .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                                 if(doc.get("closed") == false) {
-                                total += parseInt(doc.get("amount"));
+                                total += doc.get("amount");
                                 }
                         document.getElementById("openTotal").innerHTML = "Total Owed to You: $" + total;
                 });
         });
 return total;
+}
+
+function getTagsTotal(tagtype) {
+    var total = 0;
+    var user = getUserName();
+    
+    var query = firebase.firestore()
+                .collection('requests')
+                .where("recipient", "==", user)
+                .get()
+                .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                                if(doc.get("tag") == tagtype) {
+                                total += doc.get("amount");
+                                }
+                        //document.getElementById("openTotal").innerHTML = "Total Owed to You: $" + total;
+                });
+        });
+return total;
+}
+
+function getTags() {
+    var results = [];
+    results.push(getTagsTotal("Bills"));
+    results.push(getTagsTotal("Food"));
+    results.push(getTagsTotal("Fun"));
+    results.push(getTagsTotal("Other"));
+
+    console.log(results);
+    return results;
 }
 
 function getRequestorsTotal() {

@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>
+        .indent {
+            text-indent: 5%;
+        }
+    </style>
     <script src="main.js"></script>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
@@ -120,11 +125,21 @@
             </div>
         </nav>
 
+        <h4 id="welcomeMessage" class="indent"></h4>
 
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
+
+                        <!--
+                        <script>getTagsTotal("Bills");</script>
+                        <script>getTagsTotal("Food");</script>
+                        <script>getTagsTotal("Fun");</script>
+                        <script>getTagsTotal("Other");</script>
+                        -->
+                        
+
                         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                         <script type="text/javascript">
                             google.charts.load("current", {packages:["corechart"]});
@@ -182,9 +197,10 @@
                     </div>
 
                 -->
-                <!-- <h4 id="openTotal"></h4>
-                <script>getRequestsTotal();</script> -->
+                <h4 id="openTotal"></h4>
+                <script>getRequestsTotal();</script>
                     <div class="content">
+                        
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12">
@@ -212,8 +228,8 @@
                         </div>
                     </div>
 
-                    <!-- <h4 id="openTotaluo"></h4>
-                    <script>getRequestorsTotal();</script> -->
+                    <h4 id="openTotaluo"></h4>
+                    <script>getRequestorsTotal();</script>
                         <div class="content">
                             <div class="container-fluid">
                                 <div class="row">
@@ -406,7 +422,7 @@
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
-
+    <!--
 	<script type="text/javascript">
     	$(document).ready(function(){
 
@@ -423,6 +439,7 @@
 
     	});
     </script>
+-->
 
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
 <script>
@@ -460,6 +477,7 @@
         getRequestsTotal();
         getRequestorsTotal();
         displayWelcomeMessage();
+        getTags();
     });
 </script>
 
