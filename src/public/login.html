@@ -74,7 +74,19 @@
   // firebase.initializeApp(config);
 
   //Sign in with a Google account.
-  googleSignIn=()=>{
+    var firebaseConfig = {
+    apiKey: "AIzaSyBn2hre-J325kFSMOI5Ej9ytge4i1mBv6M",
+    authDomain: "split-a7e52.firebaseapp.com",
+    databaseURL: "https://split-a7e52.firebaseio.com",
+    projectId: "split-a7e52",
+    storageBucket: "split-a7e52.appspot.com",
+    messagingSenderId: "324260214592",
+    appId: "1:324260214592:web:6dedf723181b22bc"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+    googleSignIn=()=>{
     base_provider = new firebase.auth.GoogleAuthProvider()
     firebase.auth().signInWithPopup(base_provider).then(function(result){
       console.log(result)

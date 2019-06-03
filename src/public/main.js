@@ -1,11 +1,12 @@
-var config = {
-         apiKey: "AIzaSyAzE7sVPreEJK2dI_BTMTUVntz1E_O0wK0",
-         authDomain: "cs180-split.firebaseapp.com",
-         databaseURL: "https://cs180-split.firebaseio.com",
-         projectId: "cs180-split",
-         storageBucket: "cs180-split.appspot.com",
-         messagingSenderId: "638604999532"
-     };
+var config  = {
+    apiKey: "AIzaSyBn2hre-J325kFSMOI5Ej9ytge4i1mBv6M",
+    authDomain: "split-a7e52.firebaseapp.com",
+    databaseURL: "https://split-a7e52.firebaseio.com",
+    projectId: "split-a7e52",
+    storageBucket: "split-a7e52.appspot.com",
+    messagingSenderId: "324260214592",
+    appId: "1:324260214592:web:6dedf723181b22bc"
+  };
 firebase.initializeApp(config);
 
 var currUserEmail;
@@ -293,7 +294,7 @@ function getTagsTotal() {
                                     closedother += doc.get("amount");
                                 }
                             }
-                            else if(doc.get("closed") = false) {
+                            else if(doc.get("closed") == false) {
                                 if(doc.get("tag") == "Bills") {
                                     openbills += doc.get("amount");
                                 }
@@ -307,7 +308,7 @@ function getTagsTotal() {
                                     openother += doc.get("amount");
                                 }
                             }
-                            }
+                        });
 
                         google.charts.load("current", {packages:["corechart"]});
                         google.charts.setOnLoadCallback(drawChart);
@@ -348,9 +349,6 @@ function getTagsTotal() {
                             var chart = new google.visualization.PieChart(document.getElementById('historypiechart_3d'));
                             chart.draw(data, options);
                         }
-                            
-                        
-                });
         });
 }
 
