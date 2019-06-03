@@ -255,11 +255,11 @@
         var message = document.getElementById("message").value;
         var tag = document.getElementById("tag").value;
         //using the useremail variable declared from the previous script
-        if(recipient0 != null) saveRequest(useremail, recipient0, amountInt, message, tag);
-        if(recipient1 != null) saveRequest(useremail, recipient1, amountInt, message, tag);
-        if(recipient2 != null) saveRequest(useremail, recipient2, amountInt, message, tag);
-        if(recipient3 != null) saveRequest(useremail, recipient3, amountInt, message, tag);
-        if(recipient4 != null) saveRequest(useremail, recipient4, amountInt, message, tag);
+        if(recipient0 != '') saveRequest(useremail, recipient0, amountInt, message, tag);
+        if(recipient1 != '') saveRequest(useremail, recipient1, amountInt, message, tag);
+        if(recipient2 != '') saveRequest(useremail, recipient2, amountInt, message, tag);
+        if(recipient3 != '') saveRequest(useremail, recipient3, amountInt, message, tag);
+        if(recipient4 != '') saveRequest(useremail, recipient4, amountInt, message, tag);
         //console.log(loadRequests(useremail));
     }
 </script>
