@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Save a new request to Firebase
 function saveRequest(sender_name, recipient_name, amount_requested, request_memo, request_tag) {
     // Check if amount requested is an integer
-    if (!Number.isInteger(amount_requested)) {
+    if (Number.isNaN(Number.parseFloat(amount_requested))) {
         console.error('Amount requested is not integer');
         return false;
     }
